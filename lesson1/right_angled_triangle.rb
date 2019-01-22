@@ -1,11 +1,14 @@
 print 'Input first side: '
-square_a = gets.chomp.to_i ** 2
+square_a = gets.chomp.to_f**2
+square_hypotenuse = square_a
 
 print 'Input second side: '
-square_b = gets.chomp.to_i ** 2
+square_b = gets.chomp.to_f**2
+square_hypotenuse = square_b if square_b > square_hypotenuse
 
 print 'Input third side: '
-square_c = gets.chomp.to_i ** 2
+square_c = gets.chomp.to_f**2
+square_hypotenuse = square_c if square_c > square_hypotenuse
 
 puts '-----------------------------------'
 
@@ -15,17 +18,7 @@ elsif square_a == square_b || square_a == square_c || square_b == square_c
   puts 'Triangle is isosceles.'
 end
 
-if (square_a > square_b) && (square_a > square_c)
-  right_angled = (square_a == square_b + square_c)
-elsif (square_b > square_a) && (square_b > square_c)
-  right_angled = (square_b == square_a + square_c)
-elsif (square_c > square_a) && (square_c > square_b)
-  right_angled = (square_c == square_b + square_a)
-else
-  right_angled = false
-end
-
-if right_angled
+if square_hypotenuse == square_a + square_b + square_c - square_hypotenuse
   puts 'Triangle is right-angled.'
 else
   puts 'Triangle is not right-angled.'
