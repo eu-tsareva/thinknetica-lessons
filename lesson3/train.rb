@@ -1,5 +1,5 @@
 class Train
-  attr_accessor :speed
+  attr_reader :speed
   attr_reader :cars_number
   attr_reader :type
   attr_reader :number
@@ -8,12 +8,16 @@ class Train
   def initialize(number, type, cars_number)
     @number = number
     @type = type
-    @cars_number = cars_number
+    @cars_number = cars_number.positive? ? cars_number : 0
     @speed = 0
   end
 
+  def accelerate(increase = 15)
+    @speed += increase.positive? ? increase : 0
+  end
+
   def stop
-    self.speed = 0
+    @speed = 0
   end
 
   def add_car
