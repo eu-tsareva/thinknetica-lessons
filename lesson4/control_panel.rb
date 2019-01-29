@@ -114,7 +114,7 @@ class ControlPanel
 
   def show_stations
     if stations.any?
-      stations.each_with_index { |station, index| puts "#{index + 1}. #{station.name}" }
+      stations.each.with_index(1) { |station, index| puts "#{index}. #{station.name}" }
     else
       puts 'There are no stations yet.'
     end
@@ -152,9 +152,7 @@ class ControlPanel
       puts 'Wrong indexes. Try again.'
       add_station_to_route
     end
-
-    route.add_station(stations[station_index])
-    puts "\nStation was added!"
+    puts route.add_station(stations[station_index]) ?  "\nStation was added!" : "\nThere was an error! Station was not added!"
   end
 
   def delete_station_from_route
@@ -164,14 +162,13 @@ class ControlPanel
     route.show_stations
     print 'Enter station index you want to delete from route: '
     station_index = gets.chomp.to_i - 1
-    route.delete_station(station_index)
-    puts "\nStation was deleted!"
+    puts route.delete_station(station_index) ? "\nStation was deleted!" : "\nThere was an error! Station was not deleted!"
   end
 
   def show_routes
     if routes.any?
-      routes.each_with_index do |route, index|
-        puts "#{index + 1}) Route with stations:"
+      routes.each.with_index(1) do |route, index|
+        puts "#{index}) Route with stations:"
         route.show_stations
       end
     else
@@ -213,7 +210,7 @@ class ControlPanel
 
   def show_trains
     if trains.any?
-      trains.each_with_index { |train, index| puts "#{index + 1}. #{train.info}" }
+      trains.each.with_index(1) { |train, index| puts "#{index}. #{train.info}" }
     else
       puts 'There are no trains yet.'
     end
@@ -224,7 +221,7 @@ class ControlPanel
     return unless station
     if station.trains.any?
       puts "Trains at station #{station.name}: "
-      station.trains.each_with_index { |train, index| puts "#{index + 1}. #{train.number}"}
+      station.trains.each.with_index(1) { |train, index| puts "#{index}. #{train.number}"}
     else
       puts 'There are no trains at this station.'
     end

@@ -6,6 +6,7 @@ class Route
   end
 
   def add_station(station)
+    return if stations.include?(station)
     stations.insert(-2, station)
   end
 
