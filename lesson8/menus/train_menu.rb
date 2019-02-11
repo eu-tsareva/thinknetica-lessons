@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainMenu < Menu
   VARIANTS = {
     '1' => :create_train,
@@ -19,12 +21,12 @@ class TrainMenu < Menu
   end
 
   def create_train
-    number = gets_text('Enter train number: ')
+    num = gets_text('Enter train number: ')
     type = gets_text('Enter train type (cargo or passenger): ')
     validate_train!(type)
-    train = type == 'cargo' ? CargoTrain.new(number) : PassengerTrain.new(number)
+    train = type == 'cargo' ? CargoTrain.new(num) : PassengerTrain.new(num)
     trains << train
-    puts "\n#{type.capitalize} train #{number} was created!\n"
+    puts "\n#{type.capitalize} train #{num} was created!\n"
   rescue ArgumentError => e
     puts "\n#{e.message}\nTrain was not created! Try again!\n"
     create_train
@@ -36,23 +38,21 @@ class TrainMenu < Menu
     return unless train && route
 
     train.route = route
-    puts "\n Route was added to a train!"
+    puts "\nRoute was added to a train!\n"
   end
 
   def move_train_forwards
     train = choose_object('trains', trains, method(:move_train_forwards))
     return unless train
 
-    train.go_forwards
-    puts 'Train moved forwards!'
+    puts train.go_forwards ? SUCCESS_MSG : ERROR_MSG
   end
 
   def move_train_backwards
     train = choose_object('trains', trains, method(:move_train_backwards))
     return unless train
 
-    train.go_backwards
-    puts 'Train moved backwards!'
+    puts train.go_backwards ? SUCCESS_MSG : ERROR_MSG
   end
 
   def validate_train!(type)

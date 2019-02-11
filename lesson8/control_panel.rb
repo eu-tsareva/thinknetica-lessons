@@ -4,5 +4,4 @@ class ControlPanel
   def initialize
     MainMenu.new.start
   end
-
 end

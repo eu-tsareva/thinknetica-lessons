@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StationMenu < Menu
   VARIANTS = {
     '1' => :create_station,
@@ -20,8 +22,7 @@ class StationMenu < Menu
     stations << Station.new(station_name)
     puts "\nStation was created!"
   rescue ArgumentError => e
-    puts "\n#{e.message}"
-    puts 'Station was not created! Try again!'
+    puts "\n#{e.message}\nStation was not created! Try again!\n"
     create_station
   end
 
@@ -33,7 +34,7 @@ class StationMenu < Menu
       puts "Trains at station #{station.name}: "
       station.each_train_with_index { |train, i| puts "#{i}. #{train.info}" }
     else
-      puts 'There are no trains at this station.'
+      puts "There are no trains at this station.\n"
     end
   end
 end

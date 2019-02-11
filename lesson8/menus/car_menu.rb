@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CarMenu < Menu
   VARIANTS = {
     '1' => :add_car_to_train,
@@ -14,6 +16,7 @@ class CarMenu < Menu
     puts 'Enter \'2\' to remove car from existing train'
     puts 'Enter \'3\' to take space/seat in train\'s car'
     puts 'Enter \'4\' to get a list of cars in a train'
+    puts 'Enter \'0\' to return to previous menu'
   end
 
   def add_car_to_train
@@ -29,9 +32,9 @@ class CarMenu < Menu
 
   def create_car(type)
     if type == :cargo
-      CargoCar.new(gets_index('Enter space volume: '))
+      CargoCar.new(gets_number('Enter space volume: '))
     else
-      PassengerCar.new(gets_index('Enter number of seats: '))
+      PassengerCar.new(gets_number('Enter number of seats: '))
     end
   end
 
@@ -40,7 +43,7 @@ class CarMenu < Menu
     return unless train
 
     train.remove_last_car
-    puts "\n Car was deleted!"
+    puts "\n Car was deleted!\n"
   end
 
   def edit_car
@@ -54,20 +57,20 @@ class CarMenu < Menu
   end
 
   def take_space(car)
-    space = gets_index('Enter how much space to take: ')
+    space = gets_number('Enter how much space to take: ')
     if car.take_space(space)
-      puts 'Space was taken!'
+      puts "Space was taken!\n"
     else
-      puts 'Space was not taken! Try again!'
+      puts "Space was not taken! Try again!\n"
       edit_car
     end
   end
 
   def take_seat(car)
     if car.take_seat
-      puts 'Seat was taken!'
+      puts "Seat was taken!\n"
     else
-      puts 'Seat was not taken! Try again!'
+      puts "Seat was not taken! Try again!\n"
       edit_car
     end
   end
@@ -79,7 +82,7 @@ class CarMenu < Menu
     if train.cars.any?
       train.each_car_with_index { |car, index| puts "#{index}. #{car.info}" }
     else
-      puts 'There are no cars yet.'
+      puts "There are no cars yet.\n"
     end
   end
 end

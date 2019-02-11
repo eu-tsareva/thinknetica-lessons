@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RouteMenu < Menu
   VARIANTS = {
     '1' => :create_route,
@@ -24,9 +26,9 @@ class RouteMenu < Menu
     end
     first_station, last_station = route_stations
     routes << Route.new(first_station, last_station)
-    puts "\nRoute was created!"
+    puts "\nRoute was created!\n"
   rescue ArgumentError => e
-    puts "\n#{e.message}\nRoute was not created! Try again."
+    puts "\n#{e.message}\nRoute was not created! Try again.\n"
     route_stations
   end
 
@@ -47,7 +49,7 @@ class RouteMenu < Menu
     show_stations
     station_index = gets_index('Enter station index: ')
     unless correct_index?(station_index, stations)
-      puts 'Wrong indexes. Try again.'
+      puts "Wrong indexes. Try again.\n"
       add_station_to_route
     end
     puts route.add_station(stations[station_index]) ? SUCCESS_MSG : ERROR_MSG

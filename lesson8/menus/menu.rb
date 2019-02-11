@@ -68,7 +68,7 @@ class Menu
         puts "#{index}. #{station.name}"
       end
     else
-      puts 'There are no stations yet.'
+      puts "There are no stations yet.\n"
     end
   end
 
@@ -79,7 +79,7 @@ class Menu
         route.show_stations
       end
     else
-      puts 'There are no routes yet.'
+      puts "There are no routes yet.\n"
     end
   end
 
@@ -112,8 +112,12 @@ class Menu
     gets.chomp
   end
 
-  def gets_index(msg = '')
+  def gets_number(msg = '')
     msg && print(msg)
-    gets.chomp.to_i - 1
+    gets.chomp.to_i
+  end
+
+  def gets_index(msg = '')
+    gets_number(msg) - 1
   end
 end

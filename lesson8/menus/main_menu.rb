@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MainMenu < Menu
   VARIANTS = {
     '1' => :start_station_menu,
@@ -9,10 +11,11 @@ class MainMenu < Menu
   def initialize(options = {})
     super(options)
 
-    @station_menu = StationMenu.new(options)
-    @route_menu = RouteMenu.new(options)
-    @train_menu = TrainMenu.new(options)
-    @car_menu = CarMenu.new(options)
+    opts = { stations: @stations, trains: @trains, routes: @routes }
+    @station_menu = StationMenu.new(opts)
+    @route_menu = RouteMenu.new(opts)
+    @train_menu = TrainMenu.new(opts)
+    @car_menu = CarMenu.new(opts)
   end
 
   def print_menu
@@ -21,6 +24,7 @@ class MainMenu < Menu
     puts 'Enter \'1\' to work with stations'
     puts 'Enter \'2\' to work with routes'
     puts 'Enter \'3\' to work with trains'
+    puts 'Enter \'4\' to work with cars'
     puts 'Enter \'0\' to exit'
   end
 
