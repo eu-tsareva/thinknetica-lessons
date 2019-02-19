@@ -5,10 +5,12 @@ class Route
   include Validation
 
   attr_reader :stations
+  validate :stations, :presence
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     validate!
+    validate_stations!
     register_instance
   end
 
@@ -32,13 +34,13 @@ class Route
 
   private
 
-  def validate!
-    raise ArgumentError, 'Station can\'t be nil!' if stations_nil?
+  def validate_stations!
+    raise ArgumentError, 'Must be at least two stations!' unless stations_enough?
     raise ArgumentError, 'Stations must be different!' if stations_match?
   end
 
-  def stations_nil?
-    stations.compact.length != 2
+  def stations_enough?
+    stations.compact.length >= 2
   end
 
   def stations_match?

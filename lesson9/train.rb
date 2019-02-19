@@ -8,9 +8,15 @@ class Train
 
   NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
 
-  attr_reader :speed, :type, :number, :station, :cars
-  attr_accessor_with_history :test
-  strong_attr_accessor :num, String
+  attr_reader :type, :number, :station, :cars
+  attr_accessor_with_history :speed
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_FORMAT
+
+  validate :station, :type, Station
+
 
   @trains = {}
 
@@ -98,10 +104,6 @@ class Train
   end
 
   private
-
-  def validate!
-    raise ArgumentError, 'Wrong number format!' unless number =~ NUMBER_FORMAT
-  end
 
   # to preserve encapsulation
   def station=(station)

@@ -4,13 +4,16 @@ class PassengerCar < Car
   MIN_SEATS = 36
   MAX_SEATS = 68
 
-  attr_reader :seats_taken
+  attr_reader :seats, :seats_taken
+  validate :seats, :presence
+  validate :seats, :type, Integer
 
   def initialize(seats)
     @type = :passenger
     @seats = seats
     validate!
     @seats_taken = 0
+    correct_seats!
   end
 
   def info
@@ -32,10 +35,8 @@ class PassengerCar < Car
 
   private
 
-  def validate!
-    return if (MIN_SEATS..MAX_SEATS).cover?(@seats)
-
-    raise ArgumentError,
-          "Number of seats should be between #{MIN_SEATS} and #{MAX_SEATS}!"
+  def correct_seats!
+    @seats = MIN_SEATS  if seats < MIN_SEATS
+    @seats = MAX_SEATS   if seats > MAX_SEATS
   end
 end

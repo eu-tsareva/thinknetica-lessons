@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Car
-  include Manufacturer
+  extend Accessors
   include Validation
+  include Manufacturer
 
   attr_reader :type
-  attr_accessor :number
+  strong_attr_accessor :number, Integer
 
   def initialize
     @type = :unknown

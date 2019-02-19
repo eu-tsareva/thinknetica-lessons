@@ -13,7 +13,9 @@ module Accessors
 
     attr_reader attr
     define_method("#{attr}=") do |value|
-      raise TypeError, "#{value} is not of type #{class_name}" unless value.is_a?(class_name)
+      unless value.is_a?(class_name)
+        raise TypeError, "'#{value}' is not of type #{class_name}"
+      end
 
       instance_variable_set "@#{attr}", value
     end

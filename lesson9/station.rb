@@ -4,7 +4,12 @@ class Station
   include InstanceCounter
   include Validation
 
+  NAME_FORMAT = /^[a-z]{2,}(\w|-)*/i.freeze
+
   attr_reader :trains, :name
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :format, NAME_FORMAT
 
   @stations = []
 
@@ -38,13 +43,5 @@ class Station
 
   def each_train_with_index
     trains.each.with_index(1) { |train, index| yield(train, index) }
-  end
-
-  private
-
-  def validate!
-    return if name.length >= 2
-
-    raise ArgumentError, 'Station name is less than 2 characters!'
   end
 end
