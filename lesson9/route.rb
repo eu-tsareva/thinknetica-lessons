@@ -10,7 +10,6 @@ class Route
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     validate!
-    validate_stations!
     register_instance
   end
 
@@ -21,7 +20,7 @@ class Route
   end
 
   def delete_station(index)
-    return unless stations.size > 2 && (0...stations.size).cover?(index)
+    return unless stations.size > 2 && index.between?(0, stations.size - 1)
 
     stations.delete_at(index)
   end
@@ -32,12 +31,13 @@ class Route
     end
   end
 
-  private
-
-  def validate_stations!
-    raise ArgumentError, 'Must be at least two stations!' unless stations_enough?
+  def validate!
+    super
+    raise ArgumentError, 'At least two stations needed!' unless stations_enough?
     raise ArgumentError, 'Stations must be different!' if stations_match?
   end
+
+  private
 
   def stations_enough?
     stations.compact.length >= 2

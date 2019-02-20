@@ -17,12 +17,10 @@ class PassengerCar < Car
   end
 
   def info
-    <<~INFO
-      number: #{number},
-      type: #{type},
-      seats_taken: #{seats_taken},
-      seats_free: #{seats_free}
-    INFO
+    "number: #{number}," \
+    "type: #{type}," \
+    "seats_taken: #{seats_taken}," \
+    "seats_free: #{seats_free}"
   end
 
   def take_seat
@@ -36,7 +34,7 @@ class PassengerCar < Car
   private
 
   def correct_seats!
-    @seats = MIN_SEATS  if seats < MIN_SEATS
-    @seats = MAX_SEATS   if seats > MAX_SEATS
+    @seats = MIN_SEATS if seats < MIN_SEATS
+    @seats = MAX_SEATS if seats > MAX_SEATS
   end
 end

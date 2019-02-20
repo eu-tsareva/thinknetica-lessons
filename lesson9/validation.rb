@@ -14,8 +14,11 @@ module Validation
 
   def validate!
     self.class.validations.each do |val|
-      val_attr = instance_eval "@#{val[:attr]}", __FILE__, __LINE__
-      send("validate_#{val[:option]}".to_sym, val_attr, val[:value])
+      send(
+        "validate_#{val[:option]}".to_sym,
+        instance_variable_get("@#{val[:attr]}"),
+        val[:value]
+      )
     end
     nil
   end

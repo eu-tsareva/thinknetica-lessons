@@ -8,7 +8,6 @@ class CargoCar < Car
   validate :space, :presence
   validate :space, :type, Integer
 
-
   def initialize(space)
     @type = :cargo
     @space = space
@@ -18,16 +17,14 @@ class CargoCar < Car
   end
 
   def info
-    <<~INFO
-      number: #{number},
-      type: #{type},
-      space_taken: #{space_taken},
-      space_free: #{space_free}
-    INFO
+    "number: #{number}," \
+    "type: #{type}," \
+    "space_taken: #{space_taken}," \
+    "space_free: #{space_free}"
   end
 
   def take_space(space_part)
-    @space_taken += space if (0..space_free).cover?(space_part)
+    @space_taken += space_part if space_part.between?(0, space_free)
   end
 
   def space_free
@@ -37,7 +34,7 @@ class CargoCar < Car
   private
 
   def correct_space!
-    @space = MIN_SPACE  if space < MIN_SPACE
-    @space = MAX_SPACE  if space > MAX_SPACE
+    @space = MIN_SPACE if space < MIN_SPACE
+    @space = MAX_SPACE if space > MAX_SPACE
   end
 end

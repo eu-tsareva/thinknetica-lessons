@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Menu
-  SUCCESS_MSG = 'SUCCESS!'
-  ERROR_MSG = 'ERROR!'
+  SUCCESS_MSG = 'SUCCESS!'.freeze
+  ERROR_MSG = 'ERROR!'.freeze
 
   def initialize(options = {})
     @stations = options[:stations] || []
@@ -100,7 +100,7 @@ class Menu
   end
 
   def correct_index?(index, array)
-    (0...array.size).cover?(index)
+    index.between(0, array.size - 1)
   end
 
   def enough_stations?

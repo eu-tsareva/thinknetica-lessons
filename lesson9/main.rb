@@ -85,7 +85,7 @@ p 'train'
 p 'Invalid tests:'
 begin
   p '1. Validate number type'
-  Train.new(12345)
+  Train.new(12_345)
 rescue TypeError => e
   p "Error: #{e.message}"
 end

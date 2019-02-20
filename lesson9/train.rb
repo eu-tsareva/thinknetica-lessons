@@ -17,7 +17,6 @@ class Train
 
   validate :station, :type, Station
 
-
   @trains = {}
 
   class << self
